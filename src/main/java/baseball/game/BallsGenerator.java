@@ -1,4 +1,4 @@
-package baseball;
+package baseball.game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class BallsGenerator {
     private static final int BALL_SIZE = 3;
-    List<Integer> balls = new ArrayList<>();
+    public List<Integer> balls = new ArrayList<>();
 
     public void generate() {
         while(balls.size()<BALL_SIZE) {
