@@ -40,4 +40,15 @@ public class UserInputValidationsTest {
         assertThat(UserInputValidations.numberLength(1234)).isFalse();
     }
 
+    @Test
+    @DisplayName("유저 입력 테스트")
+    void userInputValideTest() {
+        assertThat(UserInputValidations.validateUserInput(123)).isTrue();
+        assertThat(UserInputValidations.validateUserInput(792)).isTrue();
+        assertThat(UserInputValidations.validateUserInput(1243)).isFalse();
+        assertThat(UserInputValidations.validateUserInput(12)).isFalse();
+        assertThat(UserInputValidations.validateUserInput(902)).isFalse();
+        assertThat(UserInputValidations.validateUserInput(223)).isFalse();
+    }
+
 }

@@ -51,7 +51,7 @@ public class GameResultTest {
     @DisplayName("3스트라이크")
     void allStrike() {
         PlayResult result = balls.play(new Balls(Arrays.asList(1, 2, 3)));
-        assertThat(result.getStrike() == 3).isTrue();
+        assertThat(result.isGameEnd()).isTrue();
 
     }
 }

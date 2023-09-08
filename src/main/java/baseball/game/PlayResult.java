@@ -18,11 +18,11 @@ public class PlayResult {
         return ball;
     }
 
-    @Override
-    public String toString() {
+    public void getAnswer() {
         String result = "";
         if(isNothing()) {
-            return "NOTHING";
+            System.out.println("NOTHING");
+            return;
         }
 
         if(ball > 0) {
@@ -32,7 +32,7 @@ public class PlayResult {
         if(strike > 0) {
             result += this.strike + "스트라이크";
         }
-        return result;
+        System.out.println(result);
     }
 
     private boolean isNothing() {
@@ -47,5 +47,9 @@ public class PlayResult {
         if(BallStatus.isStrike(status)) {
             this.strike += 1;
         }
+    }
+
+    public boolean isGameEnd() {
+        return this.strike == 3;
     }
 }
