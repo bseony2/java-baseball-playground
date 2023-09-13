@@ -26,11 +26,21 @@ public class UserInputValidationsTest {
     void numberDuplicationTest() {
         assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(123))).isTrue();
         assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(149))).isTrue();
-        assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(122))).isFalse();
-        assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(151))).isFalse();
-        assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(277))).isFalse();
-        assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(881))).isFalse();
         assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(496))).isTrue();
+
+        assertThatThrownBy(() -> UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(122)))
+                .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessage("각 숫자는 중복되면 안됩니다.");
+        assertThatThrownBy(() -> UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(151)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("각 숫자는 중복되면 안됩니다.");
+        assertThatThrownBy(() -> UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(277)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("각 숫자는 중복되면 안됩니다.");
+        assertThatThrownBy(() -> UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(881)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("각 숫자는 중복되면 안됩니다.");
+
     }
 
     @Test
@@ -38,9 +48,16 @@ public class UserInputValidationsTest {
     void numberLengthTest() {
         assertThat(UserInputValidations.numberLength(UserInputValidations.convertInputToList(123))).isTrue();
         assertThat(UserInputValidations.numberLength(UserInputValidations.convertInputToList(666))).isTrue();
-        assertThat(UserInputValidations.numberLength(UserInputValidations.convertInputToList(1))).isFalse();
-        assertThat(UserInputValidations.numberLength(UserInputValidations.convertInputToList(12))).isFalse();
-        assertThat(UserInputValidations.numberLength(UserInputValidations.convertInputToList(1234))).isFalse();
+
+        assertThatThrownBy(() -> UserInputValidations.numberLength(UserInputValidations.convertInputToList(1)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Balls의 크기는 3이어야 합니다.");
+        assertThatThrownBy(() -> UserInputValidations.numberLength(UserInputValidations.convertInputToList(12)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Balls의 크기는 3이어야 합니다.");
+        assertThatThrownBy(() -> UserInputValidations.numberLength(UserInputValidations.convertInputToList(1234)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Balls의 크기는 3이어야 합니다.");
     }
 
     @Test
@@ -48,10 +65,15 @@ public class UserInputValidationsTest {
     void userInputValideTest() {
         assertThat(UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(123))).isTrue();
         assertThat(UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(792))).isTrue();
-        assertThat(UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(1243))).isFalse();
-        assertThat(UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(12))).isFalse();
-        assertThat(UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(902))).isFalse();
-        assertThat(UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(223))).isFalse();
+
+        assertThatThrownBy(() -> UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(1243)))
+                .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(12)))
+                .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(902)))
+                .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(223)))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test
@@ -68,9 +90,7 @@ public class UserInputValidationsTest {
     }
 
     private int convertListToInteger(List<Integer> input) {
-        int result = input.stream().reduce(0, (a,b) -> a*10+b);
-        System.out.println(result);
-        return result;
+        return input.stream().reduce(0, (a,b) -> a*10+b);
     }
 
 }

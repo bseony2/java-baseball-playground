@@ -10,7 +10,10 @@ public class UserInputValidations {
     private static final int MAX_BALL_VALUE = 9;
 
     public static boolean valideAllInputUnit(List<Integer> balls) {
-        return balls.stream().allMatch(UserInputValidations::unitSizeValidate);
+        if(!balls.stream().allMatch(UserInputValidations::unitSizeValidate)) {
+            throw new IllegalArgumentException("각 자리의 크기는 1이상 9이하여야 합니다.");
+        }
+        return true;
     }
 
     public static boolean unitSizeValidate(int ball) {
@@ -18,11 +21,18 @@ public class UserInputValidations {
     }
 
     public static boolean duplicationValidate(List<Integer> balls) {
-        return balls.stream().distinct().count() == balls.size();
+        if(balls.stream().distinct().count() != balls.size()) {
+            throw new IllegalArgumentException("각 숫자는 중복될 수 없습니다.");
+        }
+
+        return true;
     }
 
     public static boolean numberLength(List<Integer> input) {
-        return input.size() == 3;
+        if(input.size() != 3) {
+            throw new IllegalArgumentException("Balls의 크기는 3이어야 합니다.");
+        }
+        return true;
     }
 
     public static boolean validateUserInput(List<Integer> input) {
