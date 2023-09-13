@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 
 
@@ -21,34 +24,53 @@ public class UserInputValidationsTest {
     @Test
     @DisplayName("값 중복 검증")
     void numberDuplicationTest() {
-        assertThat(UserInputValidations.duplicationValidate(123)).isTrue();
-        assertThat(UserInputValidations.duplicationValidate(149)).isTrue();
-        assertThat(UserInputValidations.duplicationValidate(122)).isFalse();
-        assertThat(UserInputValidations.duplicationValidate(151)).isFalse();
-        assertThat(UserInputValidations.duplicationValidate(277)).isFalse();
-        assertThat(UserInputValidations.duplicationValidate(881)).isFalse();
-        assertThat(UserInputValidations.duplicationValidate(496)).isTrue();
+        assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(123))).isTrue();
+        assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(149))).isTrue();
+        assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(122))).isFalse();
+        assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(151))).isFalse();
+        assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(277))).isFalse();
+        assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(881))).isFalse();
+        assertThat(UserInputValidations.duplicationValidate(UserInputValidations.convertInputToList(496))).isTrue();
     }
 
     @Test
     @DisplayName("3자리수 검증")
     void numberLengthTest() {
-        assertThat(UserInputValidations.numberLength(123)).isTrue();
-        assertThat(UserInputValidations.numberLength(666)).isTrue();
-        assertThat(UserInputValidations.numberLength(1)).isFalse();
-        assertThat(UserInputValidations.numberLength(12)).isFalse();
-        assertThat(UserInputValidations.numberLength(1234)).isFalse();
+        assertThat(UserInputValidations.numberLength(UserInputValidations.convertInputToList(123))).isTrue();
+        assertThat(UserInputValidations.numberLength(UserInputValidations.convertInputToList(666))).isTrue();
+        assertThat(UserInputValidations.numberLength(UserInputValidations.convertInputToList(1))).isFalse();
+        assertThat(UserInputValidations.numberLength(UserInputValidations.convertInputToList(12))).isFalse();
+        assertThat(UserInputValidations.numberLength(UserInputValidations.convertInputToList(1234))).isFalse();
     }
 
     @Test
     @DisplayName("유저 입력 테스트")
     void userInputValideTest() {
-        assertThat(UserInputValidations.validateUserInput(123)).isTrue();
-        assertThat(UserInputValidations.validateUserInput(792)).isTrue();
-        assertThat(UserInputValidations.validateUserInput(1243)).isFalse();
-        assertThat(UserInputValidations.validateUserInput(12)).isFalse();
-        assertThat(UserInputValidations.validateUserInput(902)).isFalse();
-        assertThat(UserInputValidations.validateUserInput(223)).isFalse();
+        assertThat(UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(123))).isTrue();
+        assertThat(UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(792))).isTrue();
+        assertThat(UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(1243))).isFalse();
+        assertThat(UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(12))).isFalse();
+        assertThat(UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(902))).isFalse();
+        assertThat(UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(223))).isFalse();
+    }
+
+    @Test
+    @DisplayName("유저 입력 리스트 변환 테스트")
+    void convertInputToListTest() {
+        List<Integer> testList = Arrays.asList(1, 2, 3);
+        assertThat(compareList(UserInputValidations.convertInputToList(123), testList)).isTrue();
+        assertThat(compareList(UserInputValidations.convertInputToList(321), testList)).isFalse();
+        assertThat(compareList(UserInputValidations.convertInputToList(233), testList)).isFalse();
+    }
+
+    private boolean compareList(List<Integer> userInput, List<Integer> testList) {
+        return convertListToInteger(userInput) - convertListToInteger(testList) == 0;
+    }
+
+    private int convertListToInteger(List<Integer> input) {
+        int result = input.stream().reduce(0, (a,b) -> a*10+b);
+        System.out.println(result);
+        return result;
     }
 
 }

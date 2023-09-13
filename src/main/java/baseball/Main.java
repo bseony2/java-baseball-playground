@@ -47,7 +47,7 @@ public class Main {
     private static int getUserAnswer() {
         System.out.print("숫자를 입력해 주세요 : ");
         int userInput = sc.nextInt();
-        while(!UserInputValidations.validateUserInput(userInput)) {
+        while(!UserInputValidations.validateUserInput(UserInputValidations.convertInputToList(userInput))) {
             System.out.println();
             System.out.println("입력값을 확인해주십시오");
 
