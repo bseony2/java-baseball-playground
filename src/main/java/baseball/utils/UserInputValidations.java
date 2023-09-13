@@ -36,11 +36,7 @@ public class UserInputValidations {
     }
 
     public static boolean validateUserInput(List<Integer> input) {
-        if(!valideAllInputUnit(input) || !duplicationValidate(input) || !numberLength(input)) {
-            return false;
-        }
-
-        return valideAllInputUnit(input) && duplicationValidate(input) && numberLength(input);
+        return valideAllInputUnit(input) && numberLength(input) && duplicationValidate(input);
     }
 
     public static List<Integer> convertInputToList(int balls) {

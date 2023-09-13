@@ -13,18 +13,17 @@ public class InputView {
 
     static Scanner sc = new Scanner(System.in);
     public static List<Integer> getUserAnswer() {
-        List<Integer> result = new ArrayList<>();
+        List<Integer> result = null;
         try {
             System.out.print("숫자를 입력해 주세요 : ");
-            int userInput = sc.nextInt();
-            result = convertInputToList(userInput);
+            result = convertInputToList(sc.nextInt());
             UserInputValidations.validateUserInput(result);
         }   catch(Exception e) {
             System.out.println(e.getMessage() + " 입력값을 확인해주십시오");
             getUserAnswer();
         }
 
-        return result;
+        return result == null ? new ArrayList<>() : result;
     }
 
     public static int isEnd() {
